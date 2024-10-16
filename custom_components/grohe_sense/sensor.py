@@ -113,11 +113,7 @@ class GroheSenseGuardReader:
         self._fetching_data = asyncio.Event()
 
         def parse_time(s):
-            # XXX: Fix for python 3.6 - Grohe emits time zone as "+HH:MM", python 3.6's %z only accepts the format +HHMM
-            # So, some ugly code to remove the colon for now...
-            if s.rfind(':') > s.find('+'):
-                s = s[:s.rfind(':')] + s[s.rfind(':')+1:]
-            return datetime.strptime(s, '%Y-%m-%dT%H:%M:%S.%f%z')
+            return datetime.strptime(s, '%Y-%m-%d')
 
         poll_from=self._poll_from.strftime('%Y-%m-%d')
         measurements_response = await self._auth_session.get(BASE_URL + f'locations/{self._locationId}/rooms/{self._roomId}/appliances/{self._applianceId}/data/aggregated?from={poll_from}')
@@ -126,7 +122,7 @@ class GroheSenseGuardReader:
             withdrawals = measurements_response['data']['withdrawals']
             _LOGGER.debug('Received %d withdrawals in response', len(withdrawals))
             for w in withdrawals:
-                w['starttime'] = parse_time(w['starttime'])
+                w['starttime'] = parse_time(w['date'])
             withdrawals = [ w for w in withdrawals if w['starttime'] > self._poll_from]
             withdrawals.sort(key = lambda x: x['starttime'])
 
