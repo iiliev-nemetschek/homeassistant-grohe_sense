@@ -2,6 +2,7 @@ import logging
 import asyncio
 import collections
 from datetime import (datetime, timezone, timedelta)
+import pytz
 
 from homeassistant.helpers.entity import Entity
 from homeassistant.util import Throttle
@@ -113,7 +114,10 @@ class GroheSenseGuardReader:
         self._fetching_data = asyncio.Event()
 
         def parse_time(s):
-            return datetime.strptime(s, '%Y-%m-%d')
+            temp_date = datetime.strptime(s, '%Y-%m-%d')
+            dateFrom = datetime(temp_date.year, temp_date.month, temp_date.day, temp_date.hour, temp_date.minute, temp_date.second, tzinfo=pytz.UTC)
+            return dateFrom
+        
 
         poll_from=self._poll_from.strftime('%Y-%m-%d')
         measurements_response = await self._auth_session.get(BASE_URL + f'locations/{self._locationId}/rooms/{self._roomId}/appliances/{self._applianceId}/data/aggregated?from={poll_from}')
