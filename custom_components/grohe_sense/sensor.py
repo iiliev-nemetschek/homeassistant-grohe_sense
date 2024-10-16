@@ -5,7 +5,7 @@ from datetime import (datetime, timezone, timedelta)
 
 from homeassistant.helpers.entity import Entity
 from homeassistant.util import Throttle
-from homeassistant.const import (STATE_UNAVAILABLE, STATE_UNKNOWN, UnitOfTemperature, PERCENTAGE, DEVICE_CLASS_HUMIDITY, VOLUME_FLOW_RATE_CUBIC_METERS_PER_HOUR, UnitOfPressure, UnitOfVolume)
+from homeassistant.const import (STATE_UNAVAILABLE, STATE_UNKNOWN, UnitOfTemperature, PERCENTAGE, UnitOfVolumeFlowRate, UnitOfPressure, UnitOfVolume)
 from homeassistant.components.sensor import SensorDeviceClass
 
 from homeassistant.helpers import aiohttp_client
@@ -20,8 +20,8 @@ SensorType = collections.namedtuple('SensorType', ['unit', 'device_class', 'func
 
 SENSOR_TYPES = {
         'temperature': SensorType(UnitOfTemperature.CELSIUS, SensorDeviceClass.TEMPERATURE, lambda x : x),
-        'humidity': SensorType(PERCENTAGE, DEVICE_CLASS_HUMIDITY, lambda x : x),
-        'flowrate': SensorType(VOLUME_FLOW_RATE_CUBIC_METERS_PER_HOUR, None, lambda x : x * 3.6),
+        'humidity': SensorType(PERCENTAGE, SensorDeviceClass.HUMIDITY, lambda x : x),
+        'flowrate': SensorType(UnitOfVolumeFlowRate.CUBIC_METERS_PER_HOUR, None, lambda x : x * 3.6),
         'pressure': SensorType(UnitOfPressure.BAR, SensorDeviceClass.PRESSURE, lambda x : x * 1000),
         'temperature_guard': SensorType(UnitOfTemperature.CELSIUS, SensorDeviceClass.TEMPERATURE, lambda x : x),
         }
