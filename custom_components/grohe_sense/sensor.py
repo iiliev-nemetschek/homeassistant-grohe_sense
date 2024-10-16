@@ -5,7 +5,7 @@ from datetime import (datetime, timezone, timedelta)
 
 from homeassistant.helpers.entity import Entity
 from homeassistant.util import Throttle
-from homeassistant.const import (STATE_UNAVAILABLE, STATE_UNKNOWN, UnitOfTemperature.CELSIUS, SensorDeviceClass.TEMPERATURE, PERCENTAGE, DEVICE_CLASS_HUMIDITY, VOLUME_FLOW_RATE_CUBIC_METERS_PER_HOUR, UnitOfPressure.BAR, SensorDeviceClass.PRESSURE, UnitOfTemperature.CELSIUS, SensorDeviceClass.TEMPERATURE, UnitOfVolume.LITERS)
+from homeassistant.const import (STATE_UNAVAILABLE, STATE_UNKNOWN, UnitOfTemperature, SensorDeviceClass, PERCENTAGE, DEVICE_CLASS_HUMIDITY, VOLUME_FLOW_RATE_CUBIC_METERS_PER_HOUR, UnitOfPressure, SensorDeviceClass, UnitOfVolume)
 
 from homeassistant.helpers import aiohttp_client
 
