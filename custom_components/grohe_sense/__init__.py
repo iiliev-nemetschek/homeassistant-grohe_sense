@@ -9,6 +9,7 @@ import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 
 from homeassistant.helpers import aiohttp_client
+from homeassistant.helpers import discovery
 
 _LOGGER = logging.getLogger(__name__)
 
