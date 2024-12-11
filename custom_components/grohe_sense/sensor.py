@@ -115,7 +115,7 @@ class GroheSenseGuardReader:
 
         def parse_time(s):
             temp_date = datetime.strptime(s, '%Y-%m-%d')
-            dateFrom = temp_date.replace(tzinfo=pytz.utc)
+            dateFrom = pytz.utc.localize(temp_date)
             return dateFrom
         
 
